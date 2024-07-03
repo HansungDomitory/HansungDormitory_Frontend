@@ -12,6 +12,7 @@
 		207FBC322C35282600B9FC57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 207FBC312C35282600B9FC57 /* Assets.xcassets */; };
 		207FBC352C35282600B9FC57 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 207FBC342C35282600B9FC57 /* Preview Assets.xcassets */; };
 		207FBC3E2C35401600B9FC57 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FBC3D2C35401600B9FC57 /* LogIn.swift */; };
+		207FBC402C35422800B9FC57 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FBC3F2C35422800B9FC57 /* SignIn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		207FBC312C35282600B9FC57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		207FBC342C35282600B9FC57 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		207FBC3D2C35401600B9FC57 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
+		207FBC3F2C35422800B9FC57 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 				207FBC2D2C35282400B9FC57 /* HansungDormitoryApp.swift */,
 				207FBC2F2C35282400B9FC57 /* ContentView.swift */,
 				207FBC3D2C35401600B9FC57 /* LogIn.swift */,
+				207FBC3F2C35422800B9FC57 /* SignIn.swift */,
 				207FBC312C35282600B9FC57 /* Assets.xcassets */,
 				207FBC332C35282600B9FC57 /* Preview Content */,
 			);
@@ -143,6 +146,7 @@
 				207FBC302C35282400B9FC57 /* ContentView.swift in Sources */,
 				207FBC3E2C35401600B9FC57 /* LogIn.swift in Sources */,
 				207FBC2E2C35282400B9FC57 /* HansungDormitoryApp.swift in Sources */,
+				207FBC402C35422800B9FC57 /* SignIn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

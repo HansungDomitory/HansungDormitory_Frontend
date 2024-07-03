@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct Login: View {
-    @State private var studentID: String = ""
+    @State private var id: String = ""
     @State private var password: String = ""
     
     var body: some View {
@@ -31,7 +31,7 @@ struct Login: View {
                 .font(.system(size: 12))
                 .padding(.bottom, 50)
             
-            TextField("학번을 입력해주세요", text: $studentID)
+            TextField("학번을 입력해주세요", text: $id)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal, 30)
                 .padding(.bottom, 20)
