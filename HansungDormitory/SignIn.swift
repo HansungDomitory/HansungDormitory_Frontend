@@ -16,7 +16,7 @@ struct Signin: View{
     var body: some View{
         VStack{
             HStack{
-                Image("logo")
+                Image("logoImage")
                     .resizable()
                     .frame(width: 100, height: 100)
                 
