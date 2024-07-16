@@ -2,31 +2,44 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isLoggedIn = false
+    
+    var body: some View {
+        Group {
+            if isLoggedIn {
+                MainTabView()
+            } else {
+                Login(isLoggedIn: $isLoggedIn)
+            }
+        }
+    }
+}
+struct MainTabView: View {
     var body: some View {
         TabView {
             HomeView()
                 .tabItem {
                     Image(systemName: "house.fill")
-                    Text("Home")
+                    Text("홈화면")
                 }
             
-            Text("Note View")
+            ApplyView()
                 .tabItem {
                     Image(systemName: "pencil.tip.crop.circle")
                         .font(.system(size: 24, weight: .bold))
-                    Text("Note")
+                    Text("외박신청")
                 }
             
-            Text("Check View")
+            NoticeView()
                 .tabItem {
                     Image(systemName: "checkmark.square")
-                    Text("Check")
+                    Text("공지사항")
                 }
             
             Text("Profile View")
                 .tabItem {
                     Image(systemName: "person.fill")
-                    Text("Profile")
+                    Text("마이페이지")
                 }
         }
     }
