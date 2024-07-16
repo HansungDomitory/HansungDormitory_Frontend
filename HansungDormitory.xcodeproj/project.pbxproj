@@ -13,9 +13,14 @@
 		207FBC352C35282600B9FC57 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 207FBC342C35282600B9FC57 /* Preview Assets.xcassets */; };
 		207FBC3E2C35401600B9FC57 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FBC3D2C35401600B9FC57 /* LogIn.swift */; };
 		207FBC402C35422800B9FC57 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FBC3F2C35422800B9FC57 /* SignIn.swift */; };
+		207FBC422C355FB500B9FC57 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FBC412C355FB500B9FC57 /* HomeView.swift */; };
+		20A33AF12C3AA0B500E8D25C /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A33AF02C3AA0B500E8D25C /* InfoView.swift */; };
+		20A33AF32C3AAB1100E8D25C /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A33AF22C3AAB1100E8D25C /* NoticeView.swift */; };
+		20A33AF52C3BD77E00E8D25C /* ApplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A33AF42C3BD77E00E8D25C /* ApplyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		205F19CC2C468DFF006E7B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		207FBC2A2C35282400B9FC57 /* HansungDormitory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HansungDormitory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		207FBC2D2C35282400B9FC57 /* HansungDormitoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HansungDormitoryApp.swift; sourceTree = "<group>"; };
 		207FBC2F2C35282400B9FC57 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -23,6 +28,10 @@
 		207FBC342C35282600B9FC57 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		207FBC3D2C35401600B9FC57 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		207FBC3F2C35422800B9FC57 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
+		207FBC412C355FB500B9FC57 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		20A33AF02C3AA0B500E8D25C /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		20A33AF22C3AAB1100E8D25C /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
+		20A33AF42C3BD77E00E8D25C /* ApplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,10 +64,15 @@
 		207FBC2C2C35282400B9FC57 /* HansungDormitory */ = {
 			isa = PBXGroup;
 			children = (
+				205F19CC2C468DFF006E7B07 /* Info.plist */,
 				207FBC2D2C35282400B9FC57 /* HansungDormitoryApp.swift */,
 				207FBC2F2C35282400B9FC57 /* ContentView.swift */,
 				207FBC3D2C35401600B9FC57 /* LogIn.swift */,
 				207FBC3F2C35422800B9FC57 /* SignIn.swift */,
+				207FBC412C355FB500B9FC57 /* HomeView.swift */,
+				20A33AF22C3AAB1100E8D25C /* NoticeView.swift */,
+				20A33AF42C3BD77E00E8D25C /* ApplyView.swift */,
+				20A33AF02C3AA0B500E8D25C /* InfoView.swift */,
 				207FBC312C35282600B9FC57 /* Assets.xcassets */,
 				207FBC332C35282600B9FC57 /* Preview Content */,
 			);
@@ -146,7 +160,11 @@
 				207FBC302C35282400B9FC57 /* ContentView.swift in Sources */,
 				207FBC3E2C35401600B9FC57 /* LogIn.swift in Sources */,
 				207FBC2E2C35282400B9FC57 /* HansungDormitoryApp.swift in Sources */,
+				20A33AF52C3BD77E00E8D25C /* ApplyView.swift in Sources */,
+				207FBC422C355FB500B9FC57 /* HomeView.swift in Sources */,
+				20A33AF12C3AA0B500E8D25C /* InfoView.swift in Sources */,
 				207FBC402C35422800B9FC57 /* SignIn.swift in Sources */,
+				20A33AF32C3AAB1100E8D25C /* NoticeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +301,7 @@
 				DEVELOPMENT_TEAM = KN53T5D4DF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HansungDormitory/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -312,6 +331,7 @@
 				DEVELOPMENT_TEAM = KN53T5D4DF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HansungDormitory/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
