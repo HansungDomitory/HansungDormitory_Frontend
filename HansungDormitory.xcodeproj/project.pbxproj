@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2048D3A02C483746000AFD33 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2048D39F2C483746000AFD33 /* UserService.swift */; };
 		205F19CE2C47BF27006E7B07 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205F19CD2C47BF27006E7B07 /* MyPageView.swift */; };
 		207FBC2E2C35282400B9FC57 /* HansungDormitoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FBC2D2C35282400B9FC57 /* HansungDormitoryApp.swift */; };
 		207FBC302C35282400B9FC57 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207FBC2F2C35282400B9FC57 /* ContentView.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2048D39F2C483746000AFD33 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		205F19CC2C468DFF006E7B07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		205F19CD2C47BF27006E7B07 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		207FBC2A2C35282400B9FC57 /* HansungDormitory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HansungDormitory.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,7 @@
 				205F19CD2C47BF27006E7B07 /* MyPageView.swift */,
 				207FBC312C35282600B9FC57 /* Assets.xcassets */,
 				207FBC332C35282600B9FC57 /* Preview Content */,
+				2048D39F2C483746000AFD33 /* UserService.swift */,
 			);
 			path = HansungDormitory;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 				20A33AF52C3BD77E00E8D25C /* ApplyView.swift in Sources */,
 				207FBC422C355FB500B9FC57 /* HomeView.swift in Sources */,
 				205F19CE2C47BF27006E7B07 /* MyPageView.swift in Sources */,
+				2048D3A02C483746000AFD33 /* UserService.swift in Sources */,
 				20A33AF12C3AA0B500E8D25C /* InfoView.swift in Sources */,
 				207FBC402C35422800B9FC57 /* SignIn.swift in Sources */,
 				20A33AF32C3AAB1100E8D25C /* NoticeView.swift in Sources */,

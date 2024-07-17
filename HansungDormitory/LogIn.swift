@@ -99,7 +99,7 @@ struct Login: View {
                 return
             }
             
-            guard data != nil else {
+            guard let data = data else {
                 DispatchQueue.main.async {
                     alertMessage = "데이터를 받지 못했습니다"
                     showingAlert = true
@@ -108,10 +108,16 @@ struct Login: View {
             }
             
             if let response = response as? HTTPURLResponse, response.statusCode == 201 {
-                DispatchQueue.main.async {
-                    alertMessage = "로그인 성공!"
-                    showingAlert = true
-                    isLoggedIn = true // 로그인 성공 시 상태 변경
+                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let accessToken = json["accessToken"] as? String {
+                    // 토큰 저장
+                    UserDefaults.standard.set(accessToken, forKey: "accessToken")
+                    
+                    DispatchQueue.main.async {
+                        alertMessage = "로그인 성공!"
+                        showingAlert = true
+                        isLoggedIn = true // 로그인 성공 시 상태 변경
+                    }
                 }
             } else {
                 DispatchQueue.main.async {
@@ -122,6 +128,7 @@ struct Login: View {
         }.resume()
     }
 }
+
 struct Login_Previews: PreviewProvider {
     static var previews: some View {
         Login(isLoggedIn: .constant(false))

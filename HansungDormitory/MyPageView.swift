@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct MyPageView: View {
+    @State private var userName: String = ""
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -31,7 +32,7 @@ struct MyPageView: View {
                 VStack(spacing: 10) {
                     HStack {
                         Spacer()
-                        Text("장수희님")
+                        Text("\(userName)님")
                             .font(.system(size: 25, weight: .bold))
                         Spacer()
                         Image("myImage")
@@ -42,7 +43,7 @@ struct MyPageView: View {
                     .padding()
                     
                     HStack {
-                        Text("장수희님의 배정된 방은 ")
+                        Text("\(userName)님의 배정된 방은 ")
                         Text("504-2")
                             .foregroundColor(.red)
                             .fontWeight(.bold)
@@ -86,8 +87,25 @@ struct MyPageView: View {
                 
                 Spacer()
             }
-            .padding(.top, 20) // 최상단과의 간격 조정
+            .padding(.top, 20)
             .navigationBarHidden(true)
+            .onAppear {
+                fetchUserInfo()
+            }
+        }
+    }
+    func fetchUserInfo() {
+        UserService.shared.fetchUserInfo { result in
+            switch result {
+            case .success(let userInfo):
+                if let name = userInfo["name"] as? String {
+                    DispatchQueue.main.async {
+                        self.userName = name
+                    }
+                }
+            case .failure(let error):
+                print("Failed to fetch user info: \(error)")
+            }
         }
     }
 }
