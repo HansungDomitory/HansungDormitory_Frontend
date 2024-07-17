@@ -36,7 +36,7 @@ struct MainTabView: View {
                     Text("공지사항")
                 }
             
-            Text("Profile View")
+            MyPageView()
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("마이페이지")
