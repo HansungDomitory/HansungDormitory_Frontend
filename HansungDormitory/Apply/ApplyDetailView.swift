@@ -9,9 +9,12 @@ import Foundation
 import SwiftUI
 
 struct ApplyDetailView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var startDate = Date()
     @State private var endDate = Date()
     @State private var reason = ""
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     var body: some View {
         VStack(spacing: 20) {
@@ -86,7 +89,7 @@ struct ApplyDetailView: View {
             
             // 신청하기 버튼
             Button(action: {
-                // 신청하기 액션
+                submitLeaveRequest()
             }) {
                 Text("신청하기")
                     .font(.headline)
@@ -96,12 +99,56 @@ struct ApplyDetailView: View {
             }
             .background(Color(red: 4/255, green: 45/255, blue: 111/255))
             .cornerRadius(10)
-            
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("외박 신청"), message: Text(alertMessage), dismissButton: .default(Text("확인")) {
+                    self.presentationMode.wrappedValue.dismiss()
+                })
+            }
+
             Spacer()
         }
         .padding()
     }
     
+    func submitLeaveRequest() {
+            guard let url = URL(string: "http://218.39.3.116/apply") else { return }
+            guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+                self.alertMessage = "로그인이 필요합니다."
+                self.showAlert = true
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            
+            let body: [String: Any] = [
+                "start_date": formattedDate(startDate),
+                "end_date": formattedDate(endDate),
+                "detail": reason
+            ]
+            
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+            } catch {
+                print("Error serializing JSON: \(error)")
+                return
+            }
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                DispatchQueue.main.async {
+                    if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 201 {
+                        self.alertMessage = "외박 신청이 성공적으로 처리되었습니다."
+                    } else {
+                        self.alertMessage = "외박 신청 처리 중 오류가 발생했습니다: \(error?.localizedDescription ?? "알 수 없는 오류")"
+                    }
+                    self.showAlert = true
+                }
+            }.resume()
+        }
+
+
     // 날짜 형식 지정
     func formattedDate(_ date: Date) -> String {
         let formatter = DateFormatter()
