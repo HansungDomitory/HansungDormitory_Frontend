@@ -64,6 +64,8 @@ struct ApplyView: View {
                             VStack(alignment: .leading) {
                                 HStack {
                                     Text("\(viewModel.requests.count - index)")
+                                        .font(.subheadline)
+                                    Spacer()
                                     Spacer()
                                     VStack {
                                         Text(request.startDate)
@@ -79,7 +81,7 @@ struct ApplyView: View {
                                         .font(.subheadline)
                                     Spacer()
                                     Spacer()
-                                    Text(request.registrationDate)
+                                    Text(request.formattedRegistrationDate())
                                         .font(.subheadline)
                                     Spacer()
                                     HStack(spacing: 4) {

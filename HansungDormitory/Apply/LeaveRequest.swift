@@ -21,4 +21,16 @@ struct LeaveRequest: Identifiable, Codable {
         case daysOut = "duration"
         case registrationDate = "create_at"
     }
+    
+    func formattedRegistrationDate() -> String {
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            if let date = dateFormatter.date(from: registrationDate) {
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                return dateFormatter.string(from: date)
+            }
+            return registrationDate
+        }
 }
+
