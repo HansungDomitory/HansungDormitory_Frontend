@@ -60,10 +60,10 @@ struct ApplyView: View {
                         .padding(.bottom, 20)
                         Divider()
                         
-                        ForEach(viewModel.requests) { request in
+                        ForEach(Array(viewModel.requests.enumerated()), id: \.element.id) { index, request in
                             VStack(alignment: .leading) {
                                 HStack {
-                                    Text("\(request.number)")
+                                    Text("\(viewModel.requests.count - index)")
                                     Spacer()
                                     VStack {
                                         Text(request.startDate)
@@ -140,25 +140,31 @@ class LeaveRequestViewModel: ObservableObject {
     
     func fetchLeaveRequests() {
         guard let url = URL(string: "http://218.39.3.116/apply") else { return }
-        
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data {
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .iso8601
-                    let requests = try decoder.decode([LeaveRequest].self, from: data)
-                    DispatchQueue.main.async {
-                        self.requests = requests
-                    }
-                } catch {
-                    print("Error decoding JSON: \(error)")
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+                    print("No token available")
+                    return
                 }
+        
+        var request = URLRequest(url: url)
+                request.httpMethod = "GET"
+                request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+                    if let data = data {
+                        do {
+                            let decodedResponse = try JSONDecoder().decode([LeaveRequest].self, from: data)
+                            DispatchQueue.main.async {
+                                self.requests = decodedResponse
+                            }
+                        } catch {
+                            print("Error decoding response: \(error)")
+                        }
+                    } else if let error = error {
+                        print("HTTP request failed: \(error)")
+                    }
+                }.resume()
             }
         }
-        
-        task.resume()
-    }
-}
 
 struct ApplyView_Previews: PreviewProvider {
     static var previews: some View {
