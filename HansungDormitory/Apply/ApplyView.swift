@@ -8,22 +8,9 @@
 import Foundation
 import SwiftUI
 
-struct LeaveRequest: Identifiable {
-    let id = UUID()
-    let number: Int
-    let startDate: String
-    let endDate: String
-    let daysOut: Int
-    let registrationDate: String
-}
-
 struct ApplyView: View {
-    let requests = [
-        LeaveRequest(number: 33, startDate: "2024.06.23", endDate: "2024.06.25", daysOut: 2, registrationDate: "2024.06.22"),
-        LeaveRequest(number: 32, startDate: "2024.06.18", endDate: "2024.06.19", daysOut: 1, registrationDate: "2024.06.18"),
-        LeaveRequest(number: 31, startDate: "2024.06.10", endDate: "2024.06.15", daysOut: 5, registrationDate: "2024.06.10"),
-        LeaveRequest(number: 30, startDate: "2024.06.05", endDate: "2024.06.06", daysOut: 1, registrationDate: "2024.06.05")
-    ]
+
+    @StateObject private var viewModel = LeaveRequestViewModel()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -71,7 +58,7 @@ struct ApplyView: View {
                 .padding(.bottom, 20)
                 Divider()
                 
-                ForEach(requests) { request in
+                ForEach(viewModel.requests) { request in
                     VStack(alignment: .leading) {
                         HStack {
                             Text("\(request.number)")
@@ -123,6 +110,34 @@ struct ApplyView: View {
             
             Spacer()
         }
+        .onAppear {
+            viewModel.fetchLeaveRequests()
+        }
+    }
+}
+
+class LeaveRequestViewModel: ObservableObject {
+    @Published var requests: [LeaveRequest] = []
+    
+    func fetchLeaveRequests() {
+        guard let url = URL(string: "http://218.39.3.116/apply") else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
+                    let requests = try decoder.decode([LeaveRequest].self, from: data)
+                    DispatchQueue.main.async {
+                        self.requests = requests
+                    }
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        }
+        
+        task.resume()
     }
 }
 
