@@ -85,23 +85,39 @@ struct ApplyView: View {
                                         .font(.subheadline)
                                     Spacer()
                                     HStack(spacing: 4) {
-                                        Button(action: {
-                                            // 수정 버튼 액션
-                                        }) {
-                                            Text("수정")
-                                                .font(.system(size: 15, weight: .bold))
-                                                .padding(2)
-                                                .background(Color.gray.opacity(0.3))
-                                                .cornerRadius(4)
-                                        }
-                                        Button(action: {
-                                            // 삭제 버튼 액션
-                                        }) {
-                                            Text("삭제")
-                                                .font(.system(size: 15, weight: .bold))
-                                                .padding(2)
-                                                .background(Color.gray.opacity(0.3))
-                                                .cornerRadius(4)
+                                        if request.isStartDateAfterToday() {
+                                            Button(action: {
+                                                // 수정 버튼 액션
+                                            }) {
+                                                Text("수정")
+                                                    .font(.system(size: 14))
+                                                    .padding(4)
+                                                    .padding(.leading, 2)
+                                                    .padding(.trailing, 2)
+                                                    .background(Color(red: 4/255, green: 45/255, blue: 111/255))
+                                                    .foregroundColor(.white)
+                                                    
+                                            }
+                                            Button(action: {
+                                                // 삭제 버튼 액션
+                                            }) {
+                                                Text("삭제")
+                                                    .font(.system(size: 14))
+                                                    .padding(4)
+                                                    .padding(.leading, 2)
+                                                    .padding(.trailing, 2)
+                                                    .background(.white)
+                                                    .foregroundColor(Color(red: 4/255, green: 45/255, blue: 111/255))
+                                                    .overlay(
+                                                        Rectangle()
+                                                            .stroke(Color.black, lineWidth: 1)
+                                                    )
+                                                   
+                                            }
+                                        }else {
+                                            // 동일한 공간 차지하도록 빈 뷰 추가
+                                            Spacer().frame(width: 37)
+                                            Spacer().frame(width: 37)
                                         }
                                     }
                                 }
@@ -143,33 +159,42 @@ class LeaveRequestViewModel: ObservableObject {
     func fetchLeaveRequests() {
         guard let url = URL(string: "http://218.39.3.116/apply") else { return }
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
-                    print("No token available")
-                    return
-                }
+            print("No token available")
+            return
+        }
         
         var request = URLRequest(url: url)
-                request.httpMethod = "GET"
-                request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-                    if let data = data {
-                        do {
-                            let decodedResponse = try JSONDecoder().decode([LeaveRequest].self, from: data)
-                            DispatchQueue.main.async {
-                                self.requests = decodedResponse
-                            }
-                        } catch {
-                            print("Error decoding response: \(error)")
-                        }
-                    } else if let error = error {
-                        print("HTTP request failed: \(error)")
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([LeaveRequest].self, from: data)
+                    DispatchQueue.main.async {
+                        self.requests = decodedResponse
                     }
-                }.resume()
+                } catch {
+                    print("Error decoding response: \(error)")
+                }
+            } else if let error = error {
+                print("HTTP request failed: \(error)")
             }
-        }
+        }.resume()
+    }
+}
 
 struct ApplyView_Previews: PreviewProvider {
     static var previews: some View {
         ApplyView()
+    }
+}
+
+extension LeaveRequest {
+    func isStartDateAfterToday() -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        guard let startDate = dateFormatter.date(from: self.startDate) else { return false }
+        return startDate > Date()
     }
 }
