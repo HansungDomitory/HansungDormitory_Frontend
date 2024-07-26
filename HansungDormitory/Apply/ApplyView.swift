@@ -85,7 +85,7 @@ struct ApplyView: View {
                                         .font(.subheadline)
                                     Spacer()
                                     HStack(spacing: 4) {
-                                        if request.isStartDateAfterToday() {
+                                        if request.isStartDateTodayOrAfter() {
                                             NavigationLink(destination: ApplyDetailView(leaveRequest: request)) {
                                                 Text("수정")
                                                     .font(.system(size: 14))
@@ -189,10 +189,12 @@ struct ApplyView_Previews: PreviewProvider {
 }
 
 extension LeaveRequest {
-    func isStartDateAfterToday() -> Bool {
+    func isStartDateTodayOrAfter() -> Bool {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         guard let startDate = dateFormatter.date(from: self.startDate) else { return false }
-        return startDate > Date()
+        let calendar = Calendar.current
+        return calendar.isDateInToday(startDate) || startDate > Date()
     }
 }
+
