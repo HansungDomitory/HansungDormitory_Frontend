@@ -97,20 +97,33 @@ struct ApplyView: View {
                                                     
                                             }
                                             Button(action: {
-                                                // 삭제 버튼 액션
+                                                viewModel.showDeleteAlert = true
+                                                viewModel.selectedRequestId = request.id
                                             }) {
-                                                Text("삭제")
-                                                    .font(.system(size: 14))
-                                                    .padding(4)
-                                                    .padding(.leading, 2)
-                                                    .padding(.trailing, 2)
-                                                    .background(.white)
-                                                    .foregroundColor(Color(red: 4/255, green: 45/255, blue: 111/255))
-                                                    .overlay(
-                                                        Rectangle()
-                                                            .stroke(Color.black, lineWidth: 1)
-                                                    )
-                                                   
+                                                    Text("삭제")
+                                                        .font(.system(size: 14))
+                                                        .padding(4)
+                                                        .padding(.leading, 2)
+                                                        .padding(.trailing, 2)
+                                                        .background(.white)
+                                                        .foregroundColor(Color(red: 4/255, green: 45/255, blue: 111/255))
+                                                        .overlay(
+                                                            Rectangle()
+                                                                .stroke(Color.black, lineWidth: 1)
+                                                        )
+                                                    
+                                            }
+                                            .alert(isPresented: $viewModel.showDeleteAlert) {
+                                                Alert(
+                                                    title: Text("삭제 확인"),
+                                                    message: Text("정말로 삭제하시겠습니까?"),
+                                                    primaryButton: .destructive(Text("삭제")) {
+                                                        if let id = viewModel.selectedRequestId {
+                                                            viewModel.deleteLeaveRequest(id: id)
+                                                        }
+                                                    },
+                                                    secondaryButton: .cancel(Text("취소"))
+                                                )
                                             }
                                         }else {
                                             // 동일한 공간 차지하도록 빈 뷰 추가
@@ -153,6 +166,8 @@ struct ApplyView: View {
 
 class LeaveRequestViewModel: ObservableObject {
     @Published var requests: [LeaveRequest] = []
+    @Published var showDeleteAlert = false
+    @Published var selectedRequestId: Int? = nil
     
     func fetchLeaveRequests() {
         guard let url = URL(string: "http://218.39.3.116/apply") else { return }
@@ -174,6 +189,27 @@ class LeaveRequestViewModel: ObservableObject {
                     }
                 } catch {
                     print("Error decoding response: \(error)")
+                }
+            } else if let error = error {
+                print("HTTP request failed: \(error)")
+            }
+        }.resume()
+    }
+    func deleteLeaveRequest(id: Int) {
+        guard let url = URL(string: "http://218.39.3.116/apply/\(id)") else { return }
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("No token available")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                DispatchQueue.main.async {
+                    self.requests.removeAll { $0.id == id }
                 }
             } else if let error = error {
                 print("HTTP request failed: \(error)")
