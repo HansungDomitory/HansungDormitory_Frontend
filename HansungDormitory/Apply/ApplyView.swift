@@ -86,9 +86,7 @@ struct ApplyView: View {
                                     Spacer()
                                     HStack(spacing: 4) {
                                         if request.isStartDateAfterToday() {
-                                            Button(action: {
-                                                // 수정 버튼 액션
-                                            }) {
+                                            NavigationLink(destination: ApplyDetailView(leaveRequest: request)) {
                                                 Text("수정")
                                                     .font(.system(size: 14))
                                                     .padding(4)
