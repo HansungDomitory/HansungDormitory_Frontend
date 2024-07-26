@@ -172,6 +172,7 @@ struct ApplyDetailView: View {
     // 외박일수 계산
     func calculateDays(start: Date, end: Date) -> Int {
         let calendar = Calendar.current
+        
         // 날짜를 비교하여 동일한 경우 0을 반환
         if calendar.isDate(start, equalTo: end, toGranularity: .day) {
             return 0
@@ -179,8 +180,9 @@ struct ApplyDetailView: View {
         
         // start와 end 사이의 일수 계산
         let components = calendar.dateComponents([.day], from: start, to: end)
-        // 종료일을 포함해야 하므로 +1을 해줌
-        return components.day! + 1
+        
+        // start와 end 사이의 일수를 반환
+        return components.day!
     }
 }
 
