@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MyPageView: View {
     @State private var userName: String = ""
+    @State private var UserRoom: String = ""
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -44,7 +45,7 @@ struct MyPageView: View {
                     
                     HStack {
                         Text("\(userName)님의 배정된 방은 ")
-                        Text("504-2")
+                        Text("\(UserRoom)")
                             .foregroundColor(.red)
                             .fontWeight(.bold)
                         Text("호입니다.")
@@ -78,6 +79,15 @@ struct MyPageView: View {
                         Spacer()
                     }
                     .padding(.vertical, 10)
+                    
+                    Divider()
+                    
+                    HStack {
+                        Image(systemName: "heart.circle.fill")
+                        Text("상벌점현황")
+                        Spacer()
+                    }
+                    .padding(.vertical, 10)
                 }
                 .padding()
                 .background(Color(white: 0.95))
@@ -98,9 +108,11 @@ struct MyPageView: View {
         UserService.shared.fetchUserInfo { result in
             switch result {
             case .success(let userInfo):
-                if let name = userInfo["name"] as? String {
+                if let name = userInfo["name"] as? String,
+                   let room = userInfo["room"] as? String {
                     DispatchQueue.main.async {
                         self.userName = name
+                        self.UserRoom = room
                     }
                 }
             case .failure(let error):
