@@ -9,19 +9,15 @@ import Foundation
 import SwiftUI
 
 struct ScoreView: View {
-    var studentID: String = "2071268"
-    var studentName: String = "장수희"
-    var meritPoints: Int = 13
-    var demeritPoints: Int = 5
+    @State private var studentID: String = ""
+    @State private var studentName: String = ""
+    @State private var meritPoints: Int = 0
+    @State private var demeritPoints: Int = 0
+    @State private var records: [(number: Int, reason: String, points: Int, date: String)] = []
+    
     var totalPoints: Int {
         return meritPoints - demeritPoints
     }
-    var records: [(number: Int, reason: String, points: Int, date: String)] = [
-        (4, "점호 우수 상점", 3, "2024-05-22"),
-        (3, "폐문시간내 출입\n5월 19일 02:47", -5, "2024-05-20"),
-        (2, "소방 훈련 참여", 5, "2024-04-12"),
-        (1, "1학기 OT참석", 5, "2024-03-08")
-    ]
     
     var body: some View {
         VStack(spacing: 20) {
@@ -77,18 +73,18 @@ struct ScoreView: View {
                 .background(Color(white: 0.9))
                 .padding(.bottom, 20)
                 
-                ForEach(records, id: \.number) { record in
+                ForEach(Array(records.enumerated()), id: \.offset) { index, record in
                     VStack {
                         HStack {
-                            Text("\(record.number)")
+                            Text("\(records.count - index)")
                                 .frame(width:40, alignment: .leading)
                                 .padding(.leading, 15)
                             Text(record.reason)
-                                .frame(width: 130, alignment: .leading)
+                                .frame(width: 120, alignment: .leading)
                             Text("\(record.points > 0 ? "+" : "")\(record.points)")
                                 .foregroundColor(record.points > 0 ? .blue : .red)
                                 .frame(width: 40, alignment: .leading)
-                                .padding(.trailing,10)
+                                .padding(.trailing,20)
                             Text(record.date)
                                 .frame(width: 100, alignment: .leading)
                         }
@@ -104,6 +100,44 @@ struct ScoreView: View {
         }
         .padding(.top, 20)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            fetchScores()
+        }
+    }
+    func fetchScores() {
+        guard let url = URL(string: "http://218.39.3.116/score/student") else { return }
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("No token available")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([ScoreRecord].self, from: data)
+                    DispatchQueue.main.async {
+                        if let firstRecord = decodedResponse.first?.student {
+                            self.studentID = firstRecord.id
+                            self.studentName = firstRecord.name
+                            self.meritPoints = firstRecord.meritScore
+                            self.demeritPoints = firstRecord.demeritScore
+                        }
+                        self.records = decodedResponse.enumerated().map { (index, record) in
+                            let points = record.isMerit ? record.meritScore : -record.demeritScore
+                            return (number: index + 1, reason: record.detail, points: points, date: record.formattedCreateAt())
+                        }
+                    }
+                } catch {
+                    print("Error decoding response: \(error)")
+                }
+            } else if let error = error {
+                print("HTTP request failed: \(error)")
+            }
+        }.resume()
     }
 }
 
