@@ -64,30 +64,37 @@ struct MyPageView: View {
                 
                 // 공지사항 및 외박현황
                 VStack {
-                    HStack {
-                        Image(systemName: "bell.fill")
-                        Text("공지사항")
-                        Spacer()
+                    NavigationLink(destination: InfoView()) {
+                        HStack {
+                            Image(systemName: "bell.fill")
+                            Text("공지사항")
+                            Spacer()
+                        }
+                        .foregroundColor(.black)
+                        .padding(.vertical, 10)
                     }
-                    .padding(.vertical, 10)
-                    
                     Divider()
                     
-                    HStack {
-                        Image(systemName: "pencil")
-                        Text("외박현황")
-                        Spacer()
+                    NavigationLink(destination: ApplyView()) {
+                        HStack {
+                            Image(systemName: "pencil")
+                            Text("외박현황")
+                            Spacer()
+                        }
+                        .foregroundColor(.black)
+                        .padding(.vertical, 10)
                     }
-                    .padding(.vertical, 10)
-                    
                     Divider()
                     
-                    HStack {
-                        Image(systemName: "heart.circle.fill")
-                        Text("상벌점현황")
-                        Spacer()
+                    NavigationLink(destination: ScoreView()) {
+                        HStack {
+                            Image(systemName: "heart.circle.fill")
+                            Text("상벌점현황")
+                            Spacer()
+                        }
+                        .foregroundColor(.black)
+                        .padding(.vertical, 10)
                     }
-                    .padding(.vertical, 10)
                 }
                 .padding()
                 .background(Color(white: 0.95))
