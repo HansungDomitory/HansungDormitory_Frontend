@@ -60,84 +60,89 @@ struct ApplyView: View {
                         .padding(.bottom, 20)
                         Divider()
                         
-                        ForEach(Array(viewModel.requests.enumerated()), id: \.element.id) { index, request in
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Text("\(viewModel.requests.count - index)")
-                                        .font(.subheadline)
-                                    Spacer()
-                                    Spacer()
-                                    VStack {
-                                        Text(request.startDate)
-                                            .font(.subheadline)
-                                        Text("~")
-                                            .font(.subheadline)
-                                        Text(request.endDate)
-                                            .font(.subheadline)
-                                    }
-                                    Spacer()
-                                    Spacer()
-                                    Text("\(request.daysOut)")
-                                        .font(.subheadline)
-                                    Spacer()
-                                    Spacer()
-                                    Text(request.formattedRegistrationDate())
-                                        .font(.subheadline)
-                                    Spacer()
-                                    HStack(spacing: 4) {
-                                        if request.isStartDateTodayOrAfter() {
-                                            NavigationLink(destination: ApplyDetailView(leaveRequest: request)) {
-                                                Text("수정")
-                                                    .font(.system(size: 14))
-                                                    .padding(4)
-                                                    .padding(.leading, 2)
-                                                    .padding(.trailing, 2)
-                                                    .background(Color(red: 4/255, green: 45/255, blue: 111/255))
-                                                    .foregroundColor(.white)
-                                                    
+                        ScrollView {
+                            LazyVStack(alignment: .leading, spacing: 0) {
+                                ForEach(Array(viewModel.requests.enumerated()), id: \.element.id) { index, request in
+                                    VStack(alignment: .leading) {
+                                        HStack {
+                                            Text("\(viewModel.requests.count - index)")
+                                                .font(.subheadline)
+                                            Spacer()
+                                            Spacer()
+                                            VStack {
+                                                Text(request.startDate)
+                                                    .font(.subheadline)
+                                                Text("~")
+                                                    .font(.subheadline)
+                                                Text(request.endDate)
+                                                    .font(.subheadline)
                                             }
-                                            Button(action: {
-                                                viewModel.showDeleteAlert = true
-                                                viewModel.selectedRequestId = request.id
-                                            }) {
-                                                    Text("삭제")
-                                                        .font(.system(size: 14))
-                                                        .padding(4)
-                                                        .padding(.leading, 2)
-                                                        .padding(.trailing, 2)
-                                                        .background(.white)
-                                                        .foregroundColor(Color(red: 4/255, green: 45/255, blue: 111/255))
-                                                        .overlay(
-                                                            Rectangle()
-                                                                .stroke(Color.black, lineWidth: 1)
+                                            Spacer()
+                                            Spacer()
+                                            Text("\(request.daysOut)")
+                                                .font(.subheadline)
+                                            Spacer()
+                                            Spacer()
+                                            Text(request.formattedRegistrationDate())
+                                                .font(.subheadline)
+                                            Spacer()
+                                            HStack(spacing: 4) {
+                                                if request.isStartDateTodayOrAfter() {
+                                                    NavigationLink(destination: ApplyDetailView(leaveRequest: request)) {
+                                                        Text("수정")
+                                                            .font(.system(size: 14))
+                                                            .padding(4)
+                                                            .padding(.leading, 2)
+                                                            .padding(.trailing, 2)
+                                                            .background(Color(red: 4/255, green: 45/255, blue: 111/255))
+                                                            .foregroundColor(.white)
+                                                        
+                                                    }
+                                                    Button(action: {
+                                                        viewModel.showDeleteAlert = true
+                                                        viewModel.selectedRequestId = request.id
+                                                    }) {
+                                                        Text("삭제")
+                                                            .font(.system(size: 14))
+                                                            .padding(4)
+                                                            .padding(.leading, 2)
+                                                            .padding(.trailing, 2)
+                                                            .background(.white)
+                                                            .foregroundColor(Color(red: 4/255, green: 45/255, blue: 111/255))
+                                                            .overlay(
+                                                                Rectangle()
+                                                                    .stroke(Color.black, lineWidth: 1)
+                                                            )
+                                                        
+                                                    }
+                                                    .alert(isPresented: $viewModel.showDeleteAlert) {
+                                                        Alert(
+                                                            title: Text("삭제 확인"),
+                                                            message: Text("정말로 삭제하시겠습니까?"),
+                                                            primaryButton: .destructive(Text("삭제")) {
+                                                                if let id = viewModel.selectedRequestId {
+                                                                    viewModel.deleteLeaveRequest(id: id)
+                                                                }
+                                                            },
+                                                            secondaryButton: .cancel(Text("취소"))
                                                         )
-                                                    
+                                                    }
+                                                }else {
+                                                    // 동일한 공간 차지하도록 빈 뷰 추가
+                                                    Spacer().frame(width: 37)
+                                                    Spacer().frame(width: 37)
+                                                }
                                             }
-                                            .alert(isPresented: $viewModel.showDeleteAlert) {
-                                                Alert(
-                                                    title: Text("삭제 확인"),
-                                                    message: Text("정말로 삭제하시겠습니까?"),
-                                                    primaryButton: .destructive(Text("삭제")) {
-                                                        if let id = viewModel.selectedRequestId {
-                                                            viewModel.deleteLeaveRequest(id: id)
-                                                        }
-                                                    },
-                                                    secondaryButton: .cancel(Text("취소"))
-                                                )
-                                            }
-                                        }else {
-                                            // 동일한 공간 차지하도록 빈 뷰 추가
-                                            Spacer().frame(width: 37)
-                                            Spacer().frame(width: 37)
                                         }
+                                        .padding(.horizontal)
+                                        Divider()
                                     }
                                 }
-                                .padding(.horizontal)
-                                Divider()
                             }
                         }
+                        .padding()
+                        .frame(maxHeight: 500)
                     }
-                    .padding()
                     
                     Spacer()
                 }
