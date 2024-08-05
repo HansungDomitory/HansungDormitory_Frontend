@@ -41,31 +41,34 @@ struct NoticeDetailView: View {
                             HStack {
                                 Spacer()
                                 Text(notice.title)
-                                    .font(.title2)
+                                    .font(.system(size: 20))
                                     .fontWeight(.semibold)
                                 Spacer()
                             }
                             HStack {
                                 Spacer()
-                                Text("날짜: \(notice.date)")
+                                Text("날짜: \(notice.formattedDate())")
                                     .font(.subheadline)
                                     .padding(.trailing ,20)
                             }
-                            Text(notice.detail)
-                                .padding(.top, 10)
-                            Spacer()
+                ScrollView(){
+                    Text(notice.detail)
+                        .font(.system(size: 15))
+                        .padding(.top, 10)
+                    Spacer()
+                }
+                            
                         }
             .padding()
             
             Spacer()
         }
         .padding()
-        .navigationBarTitle("공지사항 상세", displayMode: .inline)
     }
 }
 
 struct NoticeDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        NoticeDetailView(notice: Notice(title: "Sample Notice", department: "행정실", date: "2024-06-19", detail: "gweagawgeawgeqwageawegawegwagewagawegawegaweeeeeeeeeeeeeeeeeeeeeeeeeeeesrgaegoaw i. hmoewaighaw[eiogheawioghwaeogihg"))
-    }
+            NoticeDetailView(notice: Notice(id: 0, title: "Sample Notice", detail: "Sample detail", date: "2024-06-19"))
+        }
 }
