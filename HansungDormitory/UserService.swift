@@ -12,7 +12,7 @@ class UserService {
     private init() {}
     
     func fetchUserInfo(completion: @escaping (Result<[String: Any], Error>) -> Void) {
-        guard let url = URL(string: "http://218.39.3.116/student/me") else { return }
+        guard let url = URL(string: "http://3.145.59.24:3000/student/me") else { return }
         
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
             let error = NSError(domain: "No token", code: -1, userInfo: nil)

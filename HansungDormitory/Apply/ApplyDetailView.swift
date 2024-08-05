@@ -123,7 +123,7 @@ struct ApplyDetailView: View {
     
     func submitLeaveRequest() {
         let requestId = leaveRequest?.id
-                let urlString = requestId != nil ? "http://218.39.3.116/apply/\(requestId!)" : "http://218.39.3.116/apply"
+                let urlString = requestId != nil ? "http://3.145.59.24:3000/apply/\(requestId!)" : "http://3.145.59.24:3000/apply"
                 guard let url = URL(string: urlString) else { return }
             guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
                 self.alertMessage = "로그인이 필요합니다."

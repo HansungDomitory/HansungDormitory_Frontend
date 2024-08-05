@@ -81,7 +81,7 @@ struct Login: View {
     }
     
     func login() {
-        guard let url = URL(string: "http://218.39.3.116/login") else { return }
+        guard let url = URL(string: "http://3.145.59.24:3000/login") else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

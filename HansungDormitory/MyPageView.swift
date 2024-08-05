@@ -64,7 +64,7 @@ struct MyPageView: View {
                 
                 // 공지사항 및 외박현황
                 VStack {
-                    NavigationLink(destination: InfoView()) {
+                    NavigationLink(destination: NoticeView()) {
                         HStack {
                             Image(systemName: "bell.fill")
                             Text("공지사항")

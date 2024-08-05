@@ -93,7 +93,7 @@ struct Signin: View{
     }
     
     func signup() {
-        guard let url = URL(string: "http://218.39.3.116/student") else { return }
+        guard let url = URL(string: "http://3.145.59.24:3000/student") else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

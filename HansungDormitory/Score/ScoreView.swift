@@ -105,7 +105,7 @@ struct ScoreView: View {
         }
     }
     func fetchScores() {
-        guard let url = URL(string: "http://218.39.3.116/score/student") else { return }
+        guard let url = URL(string: "http://3.145.59.24:3000/score/student") else { return }
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
             print("No token available")
             return

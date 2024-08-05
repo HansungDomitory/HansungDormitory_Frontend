@@ -175,7 +175,7 @@ class LeaveRequestViewModel: ObservableObject {
     @Published var selectedRequestId: Int? = nil
     
     func fetchLeaveRequests() {
-        guard let url = URL(string: "http://218.39.3.116/apply") else { return }
+        guard let url = URL(string: "http://3.145.59.24:3000/apply") else { return }
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
             print("No token available")
             return
@@ -201,7 +201,7 @@ class LeaveRequestViewModel: ObservableObject {
         }.resume()
     }
     func deleteLeaveRequest(id: Int) {
-        guard let url = URL(string: "http://218.39.3.116/apply/\(id)") else { return }
+        guard let url = URL(string: "http://3.145.59.24:3000/apply/\(id)") else { return }
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
             print("No token available")
             return
