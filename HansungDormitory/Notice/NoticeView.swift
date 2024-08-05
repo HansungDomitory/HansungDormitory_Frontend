@@ -35,10 +35,10 @@ struct NoticeView: View {
                 .padding(.bottom, 20)
                 // Notice Count and Search Bar
                 HStack {
-                    Text("total: \(viewModel.notices.count)건")
+                    Text("total: \(viewModel.filteredNotices.count)건")
                         .padding(.leading)
                     Spacer()
-                    TextField("검색", text: .constant(""))
+                    TextField("검색", text: $viewModel.searchText)
                         .padding(8)
                         .background(Color(UIColor.systemGray6))
                         .cornerRadius(8)
@@ -63,7 +63,7 @@ struct NoticeView: View {
                 // Notice List
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
-                        ForEach(viewModel.notices, id: \.self) { notice in
+                        ForEach(viewModel.filteredNotices, id: \.self) { notice in
                             NavigationLink(destination: NoticeDetailView(notice: notice)) {
                                 VStack(alignment: .leading) {
                                     Text(notice.title)
