@@ -10,9 +10,10 @@ import SwiftUI
 
 struct NoticeView: View {
     let notices = [
-        Notice(title: "[상상빌리지] 하계 방중 행정실 근무시간...", department: "행정실", date: "2024-06-19"),
-        Notice(title: "[상상빌리지] 동계 방중 행정실 근무시간...", department: "행정실", date: "2024-06-19"),
-        Notice(title: "[상상빌리지] 하계 방중 행정실 근무시간...", department: "행정실", date: "2024-06-19")
+        Notice(title: "[상상빌리지] 하계 방중 행정실 근무시간...", department: "행정실", date: "2024-06-19", detail:""),
+        Notice(title: "[상상빌리지] 동계 방중 행정실 근무시간...", department: "행정실", date: "2024-06-19", detail:""),
+        Notice(title: "[상상빌리지] 하계 방중 행정실 근무시간...", department: "행정실", date: "2024-06-19", detail:""),
+        Notice(title: "Sample Notice", department: "행정실", date: "2024-06-19", detail: "gweagawgeawgeqwageawegawegwagewagawegawegaweeeeeeeeeeeeeeeeeeeeeeeeeeeesrgaegoaw i. hmoewaighaw[eiogheawioghwaeogihg")
     ]
     
     var body: some View {
@@ -68,22 +69,24 @@ struct NoticeView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     ForEach(notices, id: \.self) { notice in
-                        VStack(alignment: .leading) {
-                            Text(notice.title)
-                                .font(.headline)
-                                .padding(.horizontal)
-                                .padding(.vertical, 5)
-                            HStack {
-                                Text(notice.department)
-                                    .font(.subheadline)
+                        NavigationLink(destination: NoticeDetailView(notice: notice)) {
+                            VStack(alignment: .leading) {
+                                Text(notice.title)
+                                    .font(.headline)
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 5)
+                                HStack {
+                                    Text(notice.department)
+                                        .font(.subheadline)
                                     
-                                Spacer()
-                                Text(notice.date)
-                                    .font(.subheadline)
-
+                                    Spacer()
+                                    Text(notice.date)
+                                        .font(.subheadline)
+                                    
+                                }
+                                .padding(.horizontal)
+                                Divider()
                             }
-                            .padding(.horizontal)
-                            Divider()
                         }
                     }
                 }
@@ -100,6 +103,7 @@ struct Notice: Identifiable, Hashable {
     let title: String
     let department: String
     let date: String
+    let detail:String
 }
 
 struct NoticeView_Previews: PreviewProvider {
