@@ -71,11 +71,11 @@ struct ApplyView: View {
                                             Spacer()
                                             VStack {
                                                 Text(request.startDate)
-                                                    .font(.subheadline)
+                                                    .font(.system(size: 13))
                                                 Text("~")
                                                     .font(.subheadline)
                                                 Text(request.endDate)
-                                                    .font(.subheadline)
+                                                    .font(.system(size: 13))
                                             }
                                             Spacer()
                                             Spacer()
@@ -84,7 +84,7 @@ struct ApplyView: View {
                                             Spacer()
                                             Spacer()
                                             Text(request.formattedRegistrationDate())
-                                                .font(.subheadline)
+                                                .font(.system(size: 13))
                                             Spacer()
                                             HStack(spacing: 4) {
                                                 if request.isStartDateTodayOrAfter() {
