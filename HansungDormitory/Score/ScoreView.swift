@@ -56,6 +56,7 @@ struct ScoreView: View {
             Divider()
             
             // Score records
+            
             VStack(spacing: 0) {
                 HStack {
                     Text("번호")
@@ -72,7 +73,7 @@ struct ScoreView: View {
                 .padding(.vertical, 10)
                 .background(Color(white: 0.9))
                 .padding(.bottom, 20)
-                
+                ScrollView {
                 ForEach(Array(records.enumerated()), id: \.offset) { index, record in
                     VStack {
                         HStack {
@@ -102,6 +103,7 @@ struct ScoreView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             fetchScores()
+        }
         }
     }
     func fetchScores() {
