@@ -2,14 +2,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isLoggedIn = false
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         Group {
-            if isLoggedIn {
+            if appState.isLoggedIn {
                 MainTabView()
             } else {
-                Login(isLoggedIn: $isLoggedIn)
+                Login()
             }
         }
     }
@@ -47,6 +47,6 @@ struct MainTabView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(AppState())
     }
 }

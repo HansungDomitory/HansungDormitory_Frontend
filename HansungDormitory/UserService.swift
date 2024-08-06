@@ -49,4 +49,29 @@ class UserService {
             }
         }.resume()
     }
+    
+    func logout(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let url = URL(string: "http://3.145.59.24:3000/logout") else { return }
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            let error = NSError(domain: "No token", code: -1, userInfo: nil)
+            completion(.failure(error))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            // 로그아웃 성공 시 토큰 삭제
+            UserDefaults.standard.removeObject(forKey: "accessToken")
+            completion(.success(()))
+        }.resume()
+    }
 }

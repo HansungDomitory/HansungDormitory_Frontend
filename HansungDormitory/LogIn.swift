@@ -13,7 +13,7 @@ struct Login: View {
     @State private var password: String = ""
     @State private var showingAlert = false
     @State private var alertMessage = ""
-    @Binding var isLoggedIn: Bool
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         NavigationView {
@@ -116,7 +116,7 @@ struct Login: View {
                     DispatchQueue.main.async {
                         alertMessage = "로그인 성공!"
                         showingAlert = true
-                        isLoggedIn = true // 로그인 성공 시 상태 변경
+                        appState.isLoggedIn = true // 로그인 성공 시 상태 변경
                     }
                 }
             } else {
@@ -131,6 +131,6 @@ struct Login: View {
 
 struct Login_Previews: PreviewProvider {
     static var previews: some View {
-        Login(isLoggedIn: .constant(false))
+        Login().environmentObject(AppState())
     }
 }

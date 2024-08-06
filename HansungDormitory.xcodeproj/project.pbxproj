@@ -24,6 +24,7 @@
 		20B562252C60AD63008EDF4A /* NoticeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B562242C60AD63008EDF4A /* NoticeDetailView.swift */; };
 		20B562272C60B818008EDF4A /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B562262C60B818008EDF4A /* Notice.swift */; };
 		20B562292C60BA29008EDF4A /* NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B562282C60BA29008EDF4A /* NoticeViewModel.swift */; };
+		20B5622B2C620944008EDF4A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B5622A2C620944008EDF4A /* AppState.swift */; };
 		20BFAA992C58BA55006CD6D6 /* ScoreRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BFAA982C58BA55006CD6D6 /* ScoreRecord.swift */; };
 		20EFC6192C483DBC009CDF5E /* ApplyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EFC6182C483DBC009CDF5E /* ApplyDetailView.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +49,7 @@
 		20B562242C60AD63008EDF4A /* NoticeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeDetailView.swift; sourceTree = "<group>"; };
 		20B562262C60B818008EDF4A /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		20B562282C60BA29008EDF4A /* NoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewModel.swift; sourceTree = "<group>"; };
+		20B5622A2C620944008EDF4A /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		20BFAA982C58BA55006CD6D6 /* ScoreRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreRecord.swift; sourceTree = "<group>"; };
 		20EFC6182C483DBC009CDF5E /* ApplyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +98,7 @@
 				207FBC312C35282600B9FC57 /* Assets.xcassets */,
 				207FBC332C35282600B9FC57 /* Preview Content */,
 				2048D39F2C483746000AFD33 /* UserService.swift */,
+				20B5622A2C620944008EDF4A /* AppState.swift */,
 			);
 			path = HansungDormitory;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				207FBC302C35282400B9FC57 /* ContentView.swift in Sources */,
 				20BFAA992C58BA55006CD6D6 /* ScoreRecord.swift in Sources */,
 				20B562292C60BA29008EDF4A /* NoticeViewModel.swift in Sources */,
+				20B5622B2C620944008EDF4A /* AppState.swift in Sources */,
 				207FBC3E2C35401600B9FC57 /* LogIn.swift in Sources */,
 				207FBC2E2C35282400B9FC57 /* HansungDormitoryApp.swift in Sources */,
 				20AA30372C4F895C00E0284B /* LeaveRequest.swift in Sources */,

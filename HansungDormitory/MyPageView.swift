@@ -9,8 +9,10 @@ import Foundation
 import SwiftUI
 
 struct MyPageView: View {
+    @EnvironmentObject var appState: AppState
     @State private var userName: String = ""
     @State private var UserRoom: String = ""
+    @State private var showAlert: Bool = false
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -33,18 +35,43 @@ struct MyPageView: View {
                 VStack(spacing: 10) {
                     HStack {
                         Spacer()
-                        Text("\(userName)님")
-                            .font(.system(size: 25, weight: .bold))
                         Spacer()
+                        VStack{
+                            
+                            Text("\(userName)님")
+                                .font(.system(size: 28, weight: .bold))
+                            
+                            Button(action: {
+                                logout()
+                            }) {
+                                Text("logout")
+                                    .font(.system(size: 10, weight: .bold))
+                                    .foregroundColor(Color(red: 4/255, green: 45/255, blue: 111/255))
+                                    .padding()
+                                    
+                            }
+                            .frame(width: 65, height: 20)
+                            .background(Color(white: 0.90))
+                            .cornerRadius(4)
+                            .padding(.horizontal, 15)
+                            .padding(.leading, 70)
+                        }
+                       
+                        
+                        
                         Image("myImage")
                             .resizable()
                             .frame(width: 80, height: 100)
                             .foregroundColor(Color(red: 4/255, green: 45/255, blue: 111/255))
+                        Spacer()
                     }
-                    .padding()
+                    .padding(.bottom, 20)
+                                    
+                 
+                   
                     
                     HStack {
-                        Text("\(userName)님의 배정된 방은 ")
+                        Text("\(userName)님의 방은 ")
                         Text("\(UserRoom)")
                             .foregroundColor(.red)
                             .fontWeight(.bold)
@@ -109,8 +136,13 @@ struct MyPageView: View {
             .onAppear {
                 fetchUserInfo()
             }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("로그아웃 성공"), message: Text("성공적으로 로그아웃 되었습니다."), dismissButton: .default(Text("확인")) {
+                    appState.isLoggedIn = false
+                })
+            }
         }
-    }
+                }
     func fetchUserInfo() {
         UserService.shared.fetchUserInfo { result in
             switch result {
@@ -127,7 +159,22 @@ struct MyPageView: View {
             }
         }
     }
+    
+    func logout() {
+        UserService.shared.logout { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    self.showAlert = true
+                }
+            case .failure(let error):
+                print("Failed to logout: \(error)")
+            }
+        }
+    }
 }
+
+
 
 struct MyPageView_Previews: PreviewProvider {
     static var previews: some View {
