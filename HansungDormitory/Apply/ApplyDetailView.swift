@@ -15,6 +15,8 @@ struct ApplyDetailView: View {
     @State private var reason = ""
     @State private var showAlert = false
     @State private var alertMessage = ""
+    @State private var studentID: String = ""
+    @State private var studentName: String = ""
     
     var leaveRequest: LeaveRequest?
        
@@ -24,6 +26,8 @@ struct ApplyDetailView: View {
                _startDate = State(initialValue: leaveRequest.startDate.toDate())
                _endDate = State(initialValue: leaveRequest.endDate.toDate())
                _reason = State(initialValue: leaveRequest.detail)
+               _studentID = State(initialValue: leaveRequest.student.id)
+               _studentName = State(initialValue: leaveRequest.student.name)
            }
        }
     
@@ -48,7 +52,7 @@ struct ApplyDetailView: View {
                     Text("학번")
                         .font(.headline)
                     Spacer()
-                    Text("2071268")
+                    Text("\(studentID)")
                         .font(.headline)
                         .fontWeight(.bold)
                 }
@@ -57,7 +61,7 @@ struct ApplyDetailView: View {
                     Text("이름")
                         .font(.headline)
                     Spacer()
-                    Text("장수희")
+                    Text("\(studentName)")
                         .font(.headline)
                 }
                 Divider()
@@ -115,10 +119,44 @@ struct ApplyDetailView: View {
                     self.presentationMode.wrappedValue.dismiss()
                 })
             }
-
+            
             Spacer()
         }
         .padding()
+        .onAppear {
+            if leaveRequest == nil {
+                fetchStudentInfo()
+            }
+        }
+    }
+    
+    func fetchStudentInfo() {
+        guard let url = URL(string: "http://3.145.59.24:3000/student/me") else { return }
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("No token available")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode(Student.self, from: data)
+                    DispatchQueue.main.async {
+                        self.studentID = decodedResponse.id
+                        self.studentName = decodedResponse.name
+                        print("Fetched Student Info: \(decodedResponse)")
+                    }
+                } catch {
+                    print("Error decoding response: \(error)")
+                }
+            } else if let error = error {
+                print("HTTP request failed: \(error)")
+            }
+        }.resume()
     }
     
     func submitLeaveRequest() {

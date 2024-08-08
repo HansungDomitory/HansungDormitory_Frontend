@@ -14,6 +14,7 @@ struct LeaveRequest: Identifiable, Codable {
     let daysOut: Int
     let registrationDate: String
     let detail: String
+    let student: Student
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -22,6 +23,7 @@ struct LeaveRequest: Identifiable, Codable {
         case daysOut = "duration"
         case registrationDate = "create_at"
         case detail
+        case student
     }
     
     func formattedRegistrationDate() -> String {
@@ -34,5 +36,24 @@ struct LeaveRequest: Identifiable, Codable {
             }
             return registrationDate
         }
+}
+struct Student: Codable {
+    let id: String
+    let name: String
+    let password: String
+    let meritScore: Int
+    let demeritScore: Int
+    let room: String
+    let createAt: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case password
+        case meritScore = "merit_score"
+        case demeritScore = "demerit_score"
+        case room
+        case createAt = "create_at"
+    }
 }
 
