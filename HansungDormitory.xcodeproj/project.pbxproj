@@ -84,21 +84,18 @@
 		207FBC2C2C35282400B9FC57 /* HansungDormitory */ = {
 			isa = PBXGroup;
 			children = (
+				20B5622C2C652E79008EDF4A /* User */,
 				20B562232C60AD4B008EDF4A /* Notice */,
 				20BFAA9A2C58C3ED006CD6D6 /* Score */,
 				20AA30352C4F889200E0284B /* Apply */,
 				205F19CC2C468DFF006E7B07 /* Info.plist */,
 				207FBC2D2C35282400B9FC57 /* HansungDormitoryApp.swift */,
 				207FBC2F2C35282400B9FC57 /* ContentView.swift */,
-				207FBC3D2C35401600B9FC57 /* LogIn.swift */,
-				207FBC3F2C35422800B9FC57 /* SignIn.swift */,
 				207FBC412C355FB500B9FC57 /* HomeView.swift */,
 				20A33AF02C3AA0B500E8D25C /* InfoView.swift */,
 				205F19CD2C47BF27006E7B07 /* MyPageView.swift */,
 				207FBC312C35282600B9FC57 /* Assets.xcassets */,
 				207FBC332C35282600B9FC57 /* Preview Content */,
-				2048D39F2C483746000AFD33 /* UserService.swift */,
-				20B5622A2C620944008EDF4A /* AppState.swift */,
 			);
 			path = HansungDormitory;
 			sourceTree = "<group>";
@@ -130,6 +127,17 @@
 				20B562282C60BA29008EDF4A /* NoticeViewModel.swift */,
 			);
 			path = Notice;
+			sourceTree = "<group>";
+		};
+		20B5622C2C652E79008EDF4A /* User */ = {
+			isa = PBXGroup;
+			children = (
+				20B5622A2C620944008EDF4A /* AppState.swift */,
+				2048D39F2C483746000AFD33 /* UserService.swift */,
+				207FBC3D2C35401600B9FC57 /* LogIn.swift */,
+				207FBC3F2C35422800B9FC57 /* SignIn.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		20BFAA9A2C58C3ED006CD6D6 /* Score */ = {
